@@ -21,7 +21,7 @@ do
          IP=$(
             aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
-         --querry "Reservations[].Instances[].PublicIpAddress'" \
+         --query "Reservations[].Instances[].PublicIpAddress'" \
          --output text
          )
     RECORD_NAME="$DOMAIN_NAME" # ex: awsdevops527.online     
@@ -30,7 +30,7 @@ do
          IP=$(
             aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
-         --querry 'Reservations[].Instances[].PrivateIpAddress' \
+         --query 'Reservations[].Instances[].PrivateIpAddress' \
          --output text
          )
     RECORD_NAME="$instance.$DOMAIN_NAME" # ex: mongodb.awsdevops527.online     
