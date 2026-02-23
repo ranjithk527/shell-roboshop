@@ -7,26 +7,32 @@ DOMAIN_NAME="awsdevops527.online" #replace with your domain name
 
 for instance in $@
 do
-    INSTANCE_ID=$( aws ec2 run-instances \
+    INSTANCE_ID=$(
+         aws ec2 run-instances \
     --image-id $AMI_ID \
-    --instance-type t3.micro \
+    --instance-type "t3.micro" \
     --security-group-ids $SG_ID \
-    --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=$instance}]' \
+    --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$instance}]" \
     --query 'Instances[0].InstanceId' \
-    --output text )
+    --output text 
+    )
 
     if [ $instance == "frontend" ]; then
-         IP=$(aws ec2 describe-instances \
+         IP=$(
+            aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
          --querry 'Reservations[].Instances[].PublicIpAddress' \
-         --output text)
+         --output text
+         )
     RECORD_NAME="$DOMAIN_NAME" # ex: awsdevops527.online     
          
     else
-         IP=$(aws ec2 describe-instances \
+         IP=$(
+            aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
          --querry 'Reservations[].Instances[].PrivateIpAddress' \
-         --output text)
+         --output text
+         )
     RECORD_NAME="$instance.$DOMAIN_NAME" # ex: mongodb.awsdevops527.online     
     fi     
 
