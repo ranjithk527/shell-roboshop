@@ -21,7 +21,7 @@ do
          IP=$(
             aws ec2 describe-instances \
          --instance-ids $INSTANCE_ID \
-         --querry 'Reservations[].Instances[].PublicIpAddress' \
+         --querry "Reservations[].Instances[].PublicIpAddress'" \
          --output text
          )
     RECORD_NAME="$DOMAIN_NAME" # ex: awsdevops527.online     
